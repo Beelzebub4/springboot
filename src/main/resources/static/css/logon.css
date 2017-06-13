@@ -1,0 +1,38 @@
+html { overflow-x:hidden; }
+.content-header {
+    position: relative;
+    padding: 0
+}
+
+.content-header>.breadcrumb {
+    padding-left: 10px;
+    background: #ecf0f5;
+    position:static;
+    float: none;
+    font-size: 13px;
+}
+
+.content{
+    margin-top: -15px;
+}
+.main-foot {
+    padding: 7px;
+    color: #444;
+    border-top: 1px solid #eee;
+}
+.welcome{
+    float:left;
+    color:#fff;
+    padding:15px 10px;
+}
+.content-wrapper{
+    background: white;
+}
+#passwordLayer{
+    display: none;
+    width: 450px;
+    padding: 30px 0 0 50px;
+}
+#slogan{
+     display: none;
+ }

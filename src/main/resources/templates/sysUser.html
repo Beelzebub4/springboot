@@ -1,0 +1,72 @@
+<!--用户管理片段-->
+<div id="page" th:fragment="sysuser" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
+    <div id="toolbar">
+        <button shiro:hasPermission="sys:user:add" id="add" class="btn btn-primary fa fa-plus" value="增加用户">&nbsp;增加
+        </button>
+        <button shiro:hasPermission="sys:user:edit" id="edit" class="btn btn-warning fa fa-pencil" value="修改用户">&nbsp;修改
+        </button>
+        <button shiro:hasPermission="sys:user:del" id="del" class="btn btn-danger fa fa-trash-o">&nbsp;删除
+        </button>
+    </div>
+    <table id="table"></table>
+    <div id="editLayer" style="display: none">
+        <!-- 表单-->
+        <div class="form-horizontal" style="padding-top: 50px;width: 580px;">
+            <form id="editForm">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">用户名</div>
+                    <div class="col-sm-7">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="登录账号"/>
+                    </div>
+                    <div class="col-sm-3 control-label" id="usernameMsg" style="margin-left: -60px"></div>
+                </div>
+                <div class="form-group" id="editPwd">
+                    <div class="col-sm-2 control-label">密码</div>
+                    <div class="col-sm-7">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="密码"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">邮箱</div>
+                    <div class="col-sm-7">
+                        <input type="text" id="email" name="email" class="form-control" placeholder="邮箱"/>
+                    </div>
+                    <div class="col-sm-3 control-label" id="emailMsg" style="margin-left: -60px"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">手机号</div>
+                    <div class="col-sm-7">
+                        <input type="text" id="mobile" name="mobile" class="form-control" placeholder="手机号"/>
+                    </div>
+                    <div class="col-sm-3 control-label" id="mobileMsg" style="margin-left: -60px"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">角色</div>
+                    <div class="col-sm-7">
+                        <label class="checkbox-inline" th:each="roles:${roleList}">
+                            <input type="checkbox" name="roleIdList" id="roleIdList"
+                                   th:text="${roles.roleName}" th:value="${roles.roleId}"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">状态</div>
+                    <div class="col-sm-7" id="status">
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="0"/> 禁用
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="status" value="1"/> 正常
+                        </label>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/sysuser.js}"></script>
+    <script type="text/javascript" th:src="@{/js/page.js}"></script>
+    <script>
+
+    </script>
+</div>

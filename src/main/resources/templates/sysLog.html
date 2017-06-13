@@ -1,0 +1,16 @@
+<!--系统日志片段-->
+<div id="page" th:fragment="syslog" xmlns:th="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" th:href="@{css/daterangepicker-bs3.css}"/>
+    <div id="toolbar">
+        <div id="queryTime" class="btn"
+             style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+            <i class="fa fa-calendar"></i>
+            <span id="initTime"></span> <b class="caret"></b>
+        </div>
+    </div>
+    <table id="table"></table>
+    <script type="text/javascript" th:src="@{js/moment.js}"></script>
+    <script type="text/javascript" th:src="@{js/daterangepicker.js}"></script>
+    <script type="text/javascript" th:src="@{js/syslog.js}"></script>
+    <script type="text/javascript" th:src="@{js/page.js}"></script>
+</div>

@@ -1,0 +1,23 @@
+<!--新闻编辑片段-->
+<div id="page" th:fragment="newsEdit" xmlns:th="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" th:href="@{css/ueditor.min.css}"/>
+    <div id="toolbar">
+        <button id="add" class="btn btn-primary fa fa-plus" value="增加新闻">&nbsp;增加
+        </button>
+        <button id="edit" class="btn btn-warning fa fa-pencil" value="修改新闻">&nbsp;修改
+        </button>
+        <button id="del" class="btn btn-danger fa fa-trash-o">&nbsp;删除</button>
+    </div>
+    <table id="table"></table>
+    <div style="display: none" id="editLayer">
+        <div class="details">
+            <div class="con-split" id="myEditor"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{js/ueditor.config.js}"></script>
+    <script type="text/javascript" th:src="@{js/ueditor.all.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/zh-cn.js}"></script>
+    <script type="text/javascript" th:src="@{js/editNews.js}"></script>
+    <script type="text/javascript" th:src="@{js/page.js}"></script>
+</div>

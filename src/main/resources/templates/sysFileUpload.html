@@ -1,0 +1,92 @@
+<!--文件上传片段-->
+<div id="page" th:fragment="sysFileUpload" xmlns:th="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" th:href="@{css/fileinput.min.css}"/>
+        <button id="select" class="btn btn-primary" style="float: left;">&nbsp;选择文件夹</button>
+        <h3 id="target" style="padding-left: 150px">上传至图片文件夹</h3>
+    <input id="file-Portrait" name="file" multiple="multiple" type="file"/>
+    <!-- 选择菜单 -->
+    <div id="menuLayer" style="display: none;padding:10px 180px 50px 10px;">
+        <ul id="menuTree" class="ztree"></ul>
+    </div>
+
+
+    <script type="text/javascript" th:src="@{js/fileinput.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/zh.js}"></script>
+    <script type="text/javascript" th:src="@{js/page.js}"></script>
+    <script>
+        //初始化fileinput控件
+        function initFileInput(ctrlName, uploadUrl,maxFileCount) {
+            var control = $('#' + ctrlName);
+            control.fileinput({
+                language: 'zh', //设置语言
+                uploadUrl: uploadUrl, //上传的地址
+                allowedFileExtensions: ['jpg', 'png', 'gif'],//接收的文件后缀
+                maxFileCount: maxFileCount,
+                enctype: 'multipart/form-data',
+                showUpload: true, //是否显示上传按钮
+                showCaption: true,//是否显示标题
+                uploadAsync:false,
+                browseClass: "btn btn-primary"//按钮样式
+            });
+        }
+        $(function () {
+            initFileInput("file-Portrait", "fileUpload/100",100);
+            menuTree();
+        });
+
+        $('#select').click(function () {
+            layer.open({
+                title: ["选择文件夹", 'background: mediumpurple;font-size:16px'],
+                content: $("#menuLayer")
+            });
+        });
+        /**
+         * 树状图配置
+         */
+        var ztree;
+        var setting = {
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                beforeClick: beforeClick,
+                onClick: onClick
+            }
+        };
+        function beforeClick(treeId, treeNode, clickFlag) {
+        }
+
+        function onClick(event, treeId, treeNode, clickFlag) {
+            var maxFileCount;//文件数量限制
+            $.ajax({
+                url: 'sysFileUpload',
+                dataType: 'html',
+                success: function (data) {
+                    $('#page').html(data);
+                    $('#target').html('上传至' + treeNode.name + '文件夹');
+                    if(treeNode.id===101){
+                        maxFileCount=5;
+                    }else if(treeNode.id===102){
+                        maxFileCount=7
+                    }else {
+                        maxFileCount=100
+                    }
+                    initFileInput("file-Portrait", "fileUpload/" + treeNode.id,maxFileCount);
+                }
+            });
+        }
+        var zNodes = [
+            {id: 1, pId: 0, name: "图片", open: true},
+            {id: 101, pId: 1, name: "首页轮播图"},
+            {id: 102, pId: 1, name: "光荣榜"},
+            {id: 103, pId: 1, name: "其他"}
+        ];
+
+        function menuTree() {
+            /** @namespace r.menuList */
+            ztree = $.fn.zTree.init($("#menuTree"), setting, zNodes);
+        }
+    </script>
+</div>

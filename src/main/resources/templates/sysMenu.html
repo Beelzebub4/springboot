@@ -1,0 +1,78 @@
+<!--菜单管理片段-->
+<div id="page" th:fragment="sysmenu" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:shiro="http://www.w3.org/1999/xhtml">
+    <div id="toolbar">
+        <button shiro:hasPermission="sys:menu:add" id="add" class="btn btn-primary fa fa-plus" value="增加菜单">&nbsp;增加
+        </button>
+        <button shiro:hasPermission="sys:menu:edit" id="edit" class="btn btn-warning fa fa-pencil" value="修改菜单">&nbsp;修改
+        </button>
+        <button shiro:hasPermission="sys:menu:del" id="del" class="btn btn-danger fa fa-trash-o">&nbsp;删除</button>
+    </div>
+    <table id="table"></table>
+
+    <div id="editLayer" style="display: none">
+        <!-- 表单-->
+        <div class="form-horizontal" style="padding-top: 50px;width: 580px;">
+            <form id="editForm">
+                <div class="form-group">
+                    <div class="col-sm-2 control-label">类型</div>
+                    <label class="radio-inline" th:each="menuType:${menuTypeList}">
+                        <input type="radio" name="type" th:value="${menuType.value}"
+                               th:text="${menuType.description}" onclick="radioDiv()"/>
+                    </label>
+                </div>
+                <div class="form-group" id="menuName">
+                    <div class="col-sm-2 control-label">菜单名称</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="菜单名称或按钮名称"/>
+                    </div>
+                </div>
+                <div class="form-group" id="parentNames">
+                    <div class="col-sm-2 control-label">上级菜单</div>
+                    <div class="col-sm-9">
+                        <input type="text" id="parentName" name="parentName" class="form-control"
+                               style="cursor:pointer;"
+                               readonly="readonly" placeholder="根菜单"/>
+                        <input type="hidden" name="parentId" id="parentId"
+                               class="form-control" style="cursor:pointer;"
+                               readonly="readonly" placeholder="根菜单ID"/>
+                    </div>
+                </div>
+                <div class="form-group" id="menuUrl">
+                    <div class="col-sm-2 control-label">菜单URL</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="url" id="url" class="form-control" placeholder="菜单URL"/>
+                    </div>
+                </div>
+                <div class="form-group" id="menuPerms">
+                    <div class="col-sm-2 control-label">授权标识</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="perms" id="perms" class="form-control"
+                               placeholder="多个用逗号分隔，如：user:list,user:create"/>
+                    </div>
+                </div>
+                <div class="form-group" id="menuIndex">
+                    <div class="col-sm-2 control-label">排序号</div>
+                    <div class="col-sm-9">
+                        <input type="number" name="orderNum" id="orderNum" class="form-control" placeholder="排序号"/>
+                    </div>
+                </div>
+                <div class="form-group" id="menuIcon">
+                    <div class="col-sm-2 control-label">图标</div>
+                    <div class="col-sm-9">
+                        <input type="text" name="icon" id="icon" class="form-control" placeholder="菜单图标"/>
+                        <code style="margin-top:4px;display: block;">
+                            获取图标：<a href="http://fontawesome.io/icons/"
+                                    target="_blank">http://fontawesome.io/icons</a>
+                        </code>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- 选择菜单 -->
+    <div id="menuLayer" style="display: none;padding:10px;">
+        <ul id="menuTree" class="ztree"></ul>
+    </div>
+    <script type="text/javascript" th:src="@{/js/sysmenu.js}"></script>
+    <script type="text/javascript" th:src="@{/js/page.js}"></script>
+</div>

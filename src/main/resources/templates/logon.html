@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<title>Login</title>
+<div th:replace="head::head"></div>
+<link rel="stylesheet" th:href="@{css/AdminLTE.min.css}"/>
+<link rel="stylesheet" th:href="@{css/all-skins.min.css}"/>
+<link rel="stylesheet" th:href="@{css/logon.css}"/>
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper" id="rrapp">
+    <!--页面上边栏-->
+    <header class="main-header">
+        <a href="#" class="logo" onclick="reHtml('main','')">
+            <span class="logo-mini"><b>S</b></span>
+            <span class="logo-lg"><b>spring boot</b></span>
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>
+            <div class="welcome">欢迎:&nbsp;<span th:text="${currentUser}"></span>
+            </div>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" id="updatePassword"><i class="fa fa-lock"></i> &nbsp;修改密码</a></li>
+                    <li><a href="#" id="logout"><i class="fa fa-sign-out"></i> &nbsp;退出系统</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <!--菜单列表-->
+            <ul class="sidebar-menu" id="sidebar-menu" th:each="menu:${menuList}">
+                <li>
+                    <a href="#" th:if="${menu.type}==0">
+                        <i th:class="${menu.icon}"></i>
+                        <span th:text="${menu.name}"></span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu" th:if="${menu.type}==0">
+                        <li th:each="list:${menu.list}" th:if="${list.type}==1">
+                            <a th:onclick="|reHtml('${list.url}','${list.name}')|" href="#" th:id="${list.url}">
+                                <i th:class="${list.icon}"></i>
+                                <span th:text="${list.name}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div th:replace="foot::foot"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <ol class="breadcrumb" id="nav_title">
+                <li><i class="fa fa-home"></i> &nbsp; 首页</li>
+                <li id="navTitle"></li>
+            </ol>
+        </section>
+        <!--ajax替换页面-->
+        <section class="content">
+            <div th:replace="main::main"></div>
+        </section>
+
+        <footer class="main-foot">
+            <div class="pull-right">
+                Version 1.0.0
+            </div>
+            Copyright &copy; 2017
+        </footer>
+        <!-- 修改密码 -->
+        <div id="passwordLayer">
+            <form class="form-horizontal" id="editPswForm">
+                <div class="form-group">
+                    <div class="col-sm-3 control-label">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</div>
+                    <span class="label label-success" th:text="${currentUser}" style="vertical-align: bottom;margin-left: 20px"></span>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3 control-label">原密码</div>
+                    <div class="col-sm-7">
+                        <input type="password" class="form-control"
+                               name="oldPassword" placeholder="原密码"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3 control-label">新密码</div>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control"
+                               name="newPassword" placeholder="新密码"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{js/app.min.js}"></script>
+<script type="text/javascript" th:src="@{js/logon.js}"></script>
+</body>
+</html>

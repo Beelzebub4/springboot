@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db_demo?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: demo
+    password: demo
+    filter: stat,wall
+    initialSize: 5
+    minIdle: 1
+    maxActive: 30
+  http:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 10Mb
+genCode:
+  srcPath: E:\IdeaProjects\springboot\src\main\java
+  entityPkg: com.wuhainan.entity
+  daoPkg: com.wuhainan.dao
+  sqlPath:
